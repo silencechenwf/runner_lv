@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.dao.FriendMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.pojo.Friend" >
+    <id column="friend_id" property="friendId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="friend_name" property="friendName" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    friend_id, user_name, friend_name, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lv_friend
+    where friend_id = #{friendId,jdbcType=INTEGER}
+  </select>
+  <select id="selectFriendByFriendName" resultMap="BaseResultMap">
+    SELECT * FROM lv_friend WHERE friend_name=#{userName} AND state=1
+  </select>
+  <select id="selectTotalCountByUserName" resultType="java.lang.Integer">
+    SELECT COUNT(*) from lv_friend WHERE user_name=#{userName} AND  state=1
+  </select>
+  <select id="selectByUserNameAndState" resultMap="BaseResultMap">
+    SELECT * FROM lv_friend WHERE user_name=#{userName} AND state=1 limit #{pageNum},#{pageSize}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lv_friend
+    where friend_id = #{friendId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.pojo.Friend" >
+    insert into lv_friend (friend_id, user_name, friend_name,
+      state)
+    values (#{friendId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{friendName,jdbcType=VARCHAR},
+      #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.pojo.Friend" >
+    insert into lv_friend
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="friendId != null" >
+        friend_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="friendName != null" >
+        friend_name,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="friendId != null" >
+        #{friendId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="friendName != null" >
+        #{friendName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.pojo.Friend" >
+    update lv_friend
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="friendName != null" >
+        friend_name = #{friendName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where friend_id = #{friendId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.pojo.Friend" >
+    update lv_friend
+    set user_name = #{userName,jdbcType=VARCHAR},
+      friend_name = #{friendName,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER}
+    where friend_id = #{friendId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllNonFriend" resultMap="BaseResultMap">
+    SELECT * FROM lv_friend WHERE user_name=#{userName} AND state=0
+  </select>
+  <update id="agreeFriend" parameterType="com.chinasofti.pojo.Friend">
+    UPDATE lv_friend SET state=1 WHERE user_name=#{userName} and friend_name=#{friendName}
+  </update>
+</mapper>

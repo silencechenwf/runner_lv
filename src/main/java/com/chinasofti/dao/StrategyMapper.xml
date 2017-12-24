@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.dao.StrategyMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.pojo.Strategy" >
+    <id column="strategy_id" property="strategyId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="people" property="people" jdbcType="VARCHAR" />
+    <result column="equipment" property="equipment" jdbcType="VARCHAR" />
+    <result column="notice" property="notice" jdbcType="VARCHAR" />
+    <result column="publish_time" property="publishTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="vote" type="com.chinasofti.pojo.Vote">
+    <result column="strategy_id" property="strategyId"></result>
+    <result column="enjoy" property="enjoy"></result>
+    <result column="gone" property="gone"></result>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    strategy_id, title, photo, content, type, time, people, equipment, notice, publish_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lv_strategy
+    where strategy_id = #{strategyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lv_strategy
+    where strategy_id = #{strategyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.pojo.Strategy" >
+    insert into lv_strategy (strategy_id, title, photo,
+      content, type, time, 
+      people, equipment, notice, 
+      publish_time)
+    values (#{strategyId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, 
+      #{people,jdbcType=VARCHAR}, #{equipment,jdbcType=VARCHAR}, #{notice,jdbcType=VARCHAR}, 
+      #{publishTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.pojo.Strategy" >
+    insert into lv_strategy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="strategyId != null" >
+        strategy_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="photo != null" >
+        photo,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="people != null" >
+        people,
+      </if>
+      <if test="equipment != null" >
+        equipment,
+      </if>
+      <if test="notice != null" >
+        notice,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="strategyId != null" >
+        #{strategyId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="people != null" >
+        #{people,jdbcType=VARCHAR},
+      </if>
+      <if test="equipment != null" >
+        #{equipment,jdbcType=VARCHAR},
+      </if>
+      <if test="notice != null" >
+        #{notice,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.pojo.Strategy" >
+    update lv_strategy
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="people != null" >
+        people = #{people,jdbcType=VARCHAR},
+      </if>
+      <if test="equipment != null" >
+        equipment = #{equipment,jdbcType=VARCHAR},
+      </if>
+      <if test="notice != null" >
+        notice = #{notice,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        publish_time = #{publishTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where strategy_id = #{strategyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.pojo.Strategy" >
+    update lv_strategy
+    set title = #{title,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      people = #{people,jdbcType=VARCHAR},
+      equipment = #{equipment,jdbcType=VARCHAR},
+      notice = #{notice,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=VARCHAR}
+    where strategy_id = #{strategyId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByType" resultMap="BaseResultMap">
+    SELECT * FROM lv_strategy where TYPE =#{TYPE }
+  </select>
+  <select id="selectAllType" parameterType="java.lang.String">
+    SELECT DISTINCT(TYPE) FROM lv_strategy
+  </select>
+  <select id="selectAllVote" resultMap="vote">
+    SELECT * from vote WHERE strategy_id=#{strategyId}
+  </select>
+  <update id="updateByEnjoy" parameterType="com.chinasofti.pojo.Vote">
+    UPDATE vote set enjoy=#{enjoy} WHERE strategy_id=#{strategyId}
+  </update>
+</mapper>

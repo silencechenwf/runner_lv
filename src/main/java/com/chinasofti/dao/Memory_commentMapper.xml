@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.dao.Memory_commentMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.pojo.Memory_comment" >
+    <id column="memory_comment_id" property="memoryCommentId" jdbcType="INTEGER" />
+    <result column="memory_id" property="memoryId" jdbcType="INTEGER" />
+    <result column="commentator" property="commentator" jdbcType="VARCHAR" />
+    <result column="commented" property="commented" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    memory_comment_id, memory_id, commentator, commented, content, time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lv_memory_comment
+    where memory_comment_id = #{memoryCommentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lv_memory_comment
+    where memory_comment_id = #{memoryCommentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.pojo.Memory_comment" >
+    insert into lv_memory_comment (memory_comment_id, memory_id, commentator,
+      commented, content, time
+      )
+    values (null, #{memoryId,jdbcType=INTEGER}, #{commentator,jdbcType=VARCHAR},
+      #{commented,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.pojo.Memory_comment" >
+    insert into lv_memory_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memoryCommentId != null" >
+        memory_comment_id,
+      </if>
+      <if test="memoryId != null" >
+        memory_id,
+      </if>
+      <if test="commentator != null" >
+        commentator,
+      </if>
+      <if test="commented != null" >
+        commented,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memoryCommentId != null" >
+        #{memoryCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="memoryId != null" >
+        #{memoryId,jdbcType=INTEGER},
+      </if>
+      <if test="commentator != null" >
+        #{commentator,jdbcType=VARCHAR},
+      </if>
+      <if test="commented != null" >
+        #{commented,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.pojo.Memory_comment" >
+    update lv_memory_comment
+    <set >
+      <if test="memoryId != null" >
+        memory_id = #{memoryId,jdbcType=INTEGER},
+      </if>
+      <if test="commentator != null" >
+        commentator = #{commentator,jdbcType=VARCHAR},
+      </if>
+      <if test="commented != null" >
+        commented = #{commented,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where memory_comment_id = #{memoryCommentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.pojo.Memory_comment" >
+    update lv_memory_comment
+    set memory_id = #{memoryId,jdbcType=INTEGER},
+      commentator = #{commentator,jdbcType=VARCHAR},
+      commented = #{commented,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR}
+    where memory_comment_id = #{memoryCommentId,jdbcType=INTEGER}
+  </update>
+  <select id="commentList" resultMap="BaseResultMap">
+      select * from lv_memory_comment where memory_id=#{memoryId}
+  </select>
+</mapper>

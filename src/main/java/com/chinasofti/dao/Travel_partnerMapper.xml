@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.dao.Travel_partnerMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.pojo.Travel_partner" >
+    <id column="travel_partner_id" property="travelPartnerId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="return_time" property="returnTime" jdbcType="VARCHAR" />
+    <result column="place" property="place" jdbcType="VARCHAR" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="photo" property="photo" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    travel_partner_id, user_name, title, start_time, return_time, place, contact, content, 
+    state, time,photo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lv_travel_partner
+    where travel_partner_id = #{travelPartnerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lv_travel_partner
+    where travel_partner_id = #{travelPartnerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.pojo.Travel_partner" >
+    insert into lv_travel_partner (user_name, title,
+      start_time, return_time, place, 
+      contact, content, state, 
+      time,photo)
+    values (#{userName,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+      #{startTime,jdbcType=VARCHAR}, #{returnTime,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, 
+      #{contact,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{time},#{photo})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.pojo.Travel_partner" >
+    insert into lv_travel_partner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="travelPartnerId != null" >
+        travel_partner_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="returnTime != null" >
+        return_time,
+      </if>
+      <if test="place != null" >
+        place,
+      </if>
+      <if test="contact != null" >
+        contact,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="photo!=null">
+        photo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="travelPartnerId != null" >
+        #{travelPartnerId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="returnTime != null" >
+        #{returnTime,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="photo!=null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.pojo.Travel_partner" >
+    update lv_travel_partner
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="returnTime != null" >
+        return_time = #{returnTime,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where travel_partner_id = #{travelPartnerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.pojo.Travel_partner" >
+    update lv_travel_partner
+    set user_name = #{userName,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      return_time = #{returnTime,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      time = #{time,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR}
+    where travel_partner_id = #{travelPartnerId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPlace" resultMap="BaseResultMap">
+    select * from lv_travel_partner where place=#{place}
+  </select>
+  <select id="selectByTime" resultMap="BaseResultMap">
+    select * from lv_travel_partner where start_time like concat('%',#{time},'%') or return_time like concat('%',#{time},'%')
+  </select>
+  <select id="selectByTimeDesc" resultMap="BaseResultMap">
+    select * from lv_travel_partner order by time desc limit 3
+  </select>
+  <select id="selectAllDesc" resultMap="BaseResultMap">
+    select * from lv_travel_partner order by time desc
+  </select>
+  <select id="selectAllByName" resultMap="BaseResultMap">
+      select * from lv_travel_partner where user_name= #{userName}
+  </select>
+</mapper>

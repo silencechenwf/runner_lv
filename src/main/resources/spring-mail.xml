@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.qq.com"></property>
+        <property name="javaMailProperties" >
+            <props>
+                <!-- 验证身份 -->
+                <prop key="mail.smtps.auth">true</prop>
+                <prop key="mail.smtp.ssl.enable">true</prop>
+                <prop key="mail.transport.protocol">smtps</prop>
+            </props>
+        </property>
+        <!-- username填写邮箱账号,password填写授权码 -->
+        <property name="username" value="69505733@qq.com"></property>
+        <property name="password" value="nuqjcqgvcwbubide"></property>
+    </bean>
+</beans>

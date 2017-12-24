@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:component-scan base-package="com.chinasofti"></context:component-scan>
+
+    <!-- 配置上传解析器 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+        <!-- 限定文件大小 ,单位b-->
+        <property name="maxUploadSize" value="300000000"/>
+    </bean>
+
+
+    <import resource="spring-mvc.xml"></import>
+    <import resource="spring-datasource.xml"></import>
+    <import resource="spring-mybatis.xml"></import>
+    <import resource="spring-mail.xml"></import>
+    <import resource="spring-tx.xml"/>
+</beans>

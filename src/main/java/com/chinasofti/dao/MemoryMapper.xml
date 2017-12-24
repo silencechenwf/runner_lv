@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.dao.MemoryMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.pojo.Memory" >
+    <id column="memory_id" property="memoryId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="place" property="place" jdbcType="VARCHAR" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    memory_id, user_name, title, photo, type, content, time, place, count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lv_memory
+    where memory_id = #{memoryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lv_memory
+    where memory_id = #{memoryId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.pojo.Memory" >
+    insert into lv_memory (memory_id, user_name, title,
+      photo, type, content, 
+      time, place, count)
+    values (NULL, #{userName,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+      #{photo,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{time,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.pojo.Memory" >
+    insert into lv_memory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memoryId != null" >
+        memory_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="photo != null" >
+        photo,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="place != null" >
+        place,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memoryId != null" >
+        #{memoryId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.pojo.Memory" >
+    update lv_memory
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+    </set>
+    where memory_id = #{memoryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.pojo.Memory" >
+    update lv_memory
+    set user_name = #{userName,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER}
+    where memory_id = #{memoryId,jdbcType=INTEGER}
+  </update>
+<select id="selectAllMemeroy" resultMap="BaseResultMap">
+  select * from lv_memory where user_name=#{userName}
+</select>
+<select id="selectMemeroyType" resultType="string">
+  select distinct type from lv_memory
+</select>
+  <select id="selectMemeroyByType" resultMap="BaseResultMap">
+    select * from lv_memory where type=#{type} order by time desc limit 4
+  </select>
+  <select id="selectAllMemeroyByType" resultMap="BaseResultMap">
+    select * from lv_memory where type=#{type} order by time desc limit #{dateNum},#{pageSize}
+  </select>
+  <select id="selectAllMemeroyByNotes" resultMap="BaseResultMap">
+    select * from lv_memory where user_name like concat('%',#{memoryNotes},'%') or title like concat('%',#{memoryNotes},'%') or place like concat('%',#{memoryNotes},'%') or type like concat('%',#{memoryNotes},'%') order by time desc limit #{dateNum},#{pageSize}
+  </select>
+  <select id="selectMemeroyByName" resultMap="BaseResultMap">
+    SELECT * FROM lv_memory WHERE user_name=#{userName}
+  </select>
+  <select id="MemoryTotalCount" resultType="Integer">
+    select count(*) from lv_memory where type=#{type}
+  </select>
+  <select id="SearchMemoryTotalCount" resultMap="BaseResultMap">
+    select * from lv_memory where user_name like concat('%',#{memoryNotes},'%') or title like concat('%',#{memoryNotes},'%') or place like concat('%',#{memoryNotes},'%') or type like concat('%',#{memoryNotes},'%')
+  </select>
+  <select id="memeroy_list1" resultMap="BaseResultMap">
+    select * from lv_memory where user_name=#{userName} order by time desc limit #{dateNum},#{pageSize}
+  </select>
+</mapper>
